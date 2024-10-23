@@ -1,6 +1,8 @@
 import { Controller, Get, HttpCode, Inject, Logger } from "@nestjs/common";
+import { ApiTags } from "@nestjs/swagger";
 
-@Controller("health")
+@ApiTags("health")
+@Controller({ path: "health", version: "1" })
 export class ApiHealthController {
   constructor(@Inject(Logger) private readonly logger: Logger) {}
 

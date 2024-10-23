@@ -19,7 +19,7 @@ import { AuthResponseDTO } from "../dto/response.dto";
 @ApiTags("auth")
 @ApiBearerAuth("access-token")
 @UseGuards(JwtGuard)
-@Controller("/user")
+@Controller({ path: "/user", version: "1" })
 export class ApiAuthUserController {
   constructor(
     @Inject(Logger) private readonly logger: Logger,

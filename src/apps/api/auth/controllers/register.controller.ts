@@ -15,7 +15,10 @@ import { AuthResponseDTO } from "../dto/response.dto";
 
 @ApiTags("auth")
 @ApiBearerAuth("access-token")
-@Controller("/register")
+@Controller({
+  path: "/register",
+  version: "1",
+})
 export class ApiAuthRegisterController {
   constructor(
     @Inject(Logger) private readonly logger: Logger,
