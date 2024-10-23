@@ -11,7 +11,7 @@
   <a href="https://www.docker.com/"><img src="https://img.shields.io/badge/Dockerized 🐳_-blue.svg" alt="docker"/></a>
 </p>
 <p align="center">
-  <a href="https://inclined-ann-marie-mindstartups-7f8862fc.koyeb.app/api/docs" target="_blank"><strong>DEMO Pulpoline Backend</strong></a>
+  <a href="https://bottom-timmie-mindstartups-df099d9f.koyeb.app/api/docs" target="_blank"><strong>DEMO Pulpoline Backend</strong></a>
 </p>
 
 ## Technologies Used
