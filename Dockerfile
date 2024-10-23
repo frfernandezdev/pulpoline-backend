@@ -20,8 +20,7 @@ COPY nest-cli.json .
 COPY src src
 COPY prisma prisma
 
-RUN npx prisma generate  && \
-    npx prisma migrate dev
+RUN npx prisma generate
 
 EXPOSE $PORT
 CMD ["npm", "run", "dev"]
@@ -41,8 +40,7 @@ COPY nest-cli.json .
 COPY src src
 COPY prisma prisma
 
-RUN npx prisma generate && \
-    npx prisma migrate deploy
+RUN npx prisma generate
 RUN npm run build && \
     npm prune --production
 
@@ -55,6 +53,7 @@ COPY --from=build /usr/bin/dumb-init /usr/bin/dumb-init
 COPY --from=build $DIR/package*.json .
 COPY --from=build $DIR/node_modules node_modules
 COPY --from=build $DIR/dist dist
+COPY --from=build $DIR/prisma prisma
 
 USER $USER
 EXPOSE $PORT
