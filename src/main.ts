@@ -17,7 +17,19 @@ import { ResponseInterceptor } from "./contexts/shared/infrastructure/response/r
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
     ApiModule,
-    new FastifyAdapter(),
+    new FastifyAdapter({
+      logger: {
+        level: "info", // Change this to 'debug' for more detailed logs
+        transport: {
+          target: "pino-pretty", // Use pino-pretty for pretty logging
+          options: {
+            colorize: true, // Colorize output for better visibility
+            translateTime: "SYS:standard", // Display timestamps in standard format
+            ignore: "pid,hostname", // Ignore pid and hostname in the output
+          },
+        },
+      },
+    }),
   );
 
   const configService = app.get(ConfigService);

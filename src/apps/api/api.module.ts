@@ -12,6 +12,7 @@ import { ApiHealthModule } from "./health/health.module";
     LoggerModule,
     ConfigModule.forRoot({
       isGlobal: true,
+      cache: true,
       validationSchema: Joi.object({
         PORT: Joi.number().required(),
         DATABASE_URL: Joi.string().required(),
