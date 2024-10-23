@@ -1,7 +1,4 @@
 <h1 align="center">Pulpoline Backend 🚀✨</h1>
-<p align="center">
-  This project is a Backend For Frontend (BFF) designed to act as an intermediary between the public PokeApi and the frontend applications consuming the data. The BFF is designed to simplify requests to PokeApi, optimize responses, and provide an additional layer of business logic.
-</p>
 
 <p align="center">
   <a href="https://github.com/frfernandezdev/bff-poke-vault/actions/workflows/node.yml?branch=main"><img src="https://github.com/frfernandezdev/bff-poke-vault/actions/workflows/node.yml/badge.svg?branch=main" alt="nodejs"/></a>
