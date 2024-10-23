@@ -1,6 +1,6 @@
 services:
   production:
-    container_name: production
+    container_name: pulpoline-production
     build:
       target: production
       context: .
@@ -18,7 +18,7 @@ services:
           memory: "256m"
 
   development:
-    container_name: development
+    container_name: pulpoline-development
     restart: unless-stopped
     env_file: .env
     build:
