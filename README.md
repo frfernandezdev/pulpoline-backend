@@ -89,6 +89,18 @@ docker-compose down
 ```bash
 npm run build
 ```
+## Migrating Database
+
+To run the migrations and set up your database schema, follow these steps:
+
+Run Migrations: To apply any migrations that you've defined in your Prisma schema, use the following command:
+```bash
+docker-compose exec app npx prisma migrate deploy
+```
+Generate Prisma Types: After running your migrations, generate the TypeScript types based on your Prisma schema:
+```bash
+docker-compose exec app npx prisma generate
+```
 
 ## ✅ Testing
 
