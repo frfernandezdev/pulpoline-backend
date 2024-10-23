@@ -1,6 +1,6 @@
 services:
-  my-service-production:
-    container_name: my-service-production
+  production:
+    container_name: production
     build:
       target: production
       context: .
@@ -17,8 +17,8 @@ services:
           cpus: "0.25"
           memory: "256m"
 
-  my-service-dev:
-    container_name: my-service-dev
+  development:
+    container_name: development
     restart: unless-stopped
     env_file: .env
     build:
@@ -31,6 +31,7 @@ services:
       - "9229:9229"
     volumes:
       - ./src:/app/src
+      - ./prisma:/app/prisma
     deploy:
       resources:
         limits:
@@ -39,22 +40,26 @@ services:
         reservations:
           cpus: "0.25"
           memory: "256m"
+    depends_on:
+        - pgsql
 
-  k6:
-    image: ghcr.io/grafana/xk6-dashboard:0.7.2
-    container_name: k6
-    volumes:
-      - ./tests/performance:/tests/performance
-      - ./k6-results:/home/k6
+  pgsql:
+    image: 'postgres:17'
     ports:
-      - "5665:5665"
+        - '${FORWARD_DB_PORT:-5432}:5432'
     environment:
-      BASE_URL: "http://host.docker.internal:3000"
-      K6_WEB_DASHBOARD_EXPORT: "report.html"
-      K6_WEB_DASHBOARD_PERIOD: "1s"
-      K6_WEB_DASHBOARD_OPEN: "true"
-    command: [
-      "run",
-      "--out", "web-dashboard",
-      "/tests/performance/contexts/users/get-users.mjs"
-    ]
+        PGPASSWORD: '${DB_PASSWORD:-secret}'
+        POSTGRES_DB: '${DB_DATABASE}'
+        POSTGRES_USER: '${DB_USERNAME}'
+        POSTGRES_PASSWORD: '${DB_PASSWORD:-secret}'
+    healthcheck:
+        test:
+            - CMD
+            - pg_isready
+            - '-q'
+            - '-d'
+            - '${DB_DATABASE}'
+            - '-U'
+            - '${DB_USERNAME}'
+        retries: 3
+        timeout: 5s

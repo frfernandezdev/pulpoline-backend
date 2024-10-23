@@ -1,3 +1,5 @@
+import helmet from "@fastify/helmet";
+import rateLimit from "@fastify/rate-limit";
 import {
   ClassSerializerInterceptor,
   Logger,
@@ -64,6 +66,25 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup("api/docs", app, document);
+
+  await app.register(helmet, {
+    referrerPolicy: { policy: "no-referrer" },
+    frameguard: { action: "deny" },
+    permittedCrossDomainPolicies: true,
+  });
+
+  await app.register(rateLimit, {
+    max: 100,
+    timeWindow: "1 minute",
+    ban: 1,
+    errorResponseBuilder: () => {
+      return {
+        statusCode: 429,
+        error: "Too Many Requests",
+        message: `You have exceeded the request limit. Please try again later.`,
+      };
+    },
+  });
 
   await app.listen(port, "0.0.0.0");
 

@@ -1,17 +1,17 @@
 {
-  "name": "nestjs-service-template",
+  "name": "pulpoline-backend",
   "version": "1.0.0",
-  "description": "Template for new nestjs services",
-  "author": "alberthernandezdev@gmail.com",
+  "description": "Pulpoline Backend",
+  "author": "frfernandezdev@gmail.com",
   "license": "MIT",
   "type": "module",
   "bugs": {
-    "url": "https://github.com/AlbertHernandez/nestjs-service-template/issues"
+    "url": "https://github.com/frfernandezdev/pulpoline-backend"
   },
-  "homepage": "https://github.com/AlbertHernandez/nestjs-service-template#readme",
+  "homepage": "https://github.com/frfernandezdev/pulpoline-backend#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AlbertHernandez/nestjs-service-template.git"
+    "url": "git+https://github.com/frfernandezdev/pulpoline-backend.git"
   },
   "keywords": [
     "typescript",
@@ -40,6 +40,8 @@
     "typos": "chmod +x scripts/check_typos.sh && ./scripts/check_typos.sh"
   },
   "dependencies": {
+    "@fastify/helmet": "^11.1.1",
+    "@fastify/rate-limit": "^9.1.0",
     "@fastify/static": "^7.0.4",
     "@hashgraph/cryptography": "^1.4.8-beta.10",
     "@hashgraph/sdk": "^2.52.0",
@@ -49,7 +51,7 @@
     "@nestjs/core": "^10.4.5",
     "@nestjs/jwt": "^10.2.0",
     "@nestjs/passport": "^10.0.3",
-    "@nestjs/platform-fastify": "^10.4.5",
+    "@nestjs/platform-fastify": "^10.4.6",
     "@nestjs/schedule": "^4.1.1",
     "@nestjs/swagger": "^7.4.2",
     "@prisma/client": "^5.21.1",
