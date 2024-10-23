@@ -7,6 +7,7 @@ import { PrismaModule } from "../shared/infrastructure/persistence/prisma/prisma
 import { AuthLoginService } from "./application/login.service";
 import { AuthLogoutService } from "./application/logout.service";
 import { AuthRegisterService } from "./application/register.service";
+import { AuthUserService } from "./application/user.service";
 import { AuthValidateService } from "./application/validate.service";
 import { AuthSessionRepository } from "./infrastructure/persistence/prisma/session.repository";
 import { AuthUserRepository } from "./infrastructure/persistence/prisma/user.repository";
@@ -32,6 +33,7 @@ import { AuthUserRepository } from "./infrastructure/persistence/prisma/user.rep
     AuthRegisterService,
     AuthLogoutService,
     AuthValidateService,
+    AuthUserService,
   ],
   exports: [
     AuthLoginService,
@@ -39,6 +41,7 @@ import { AuthUserRepository } from "./infrastructure/persistence/prisma/user.rep
     AuthRegisterService,
     AuthLogoutService,
     AuthValidateService,
+    AuthUserService,
   ],
 })
 export class AuthModule {}

@@ -16,7 +16,11 @@ export class AuthRegisterService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async register({ name, email, password }: Prisma.UserCreateInput) {
+  async register({
+    name,
+    email,
+    password,
+  }: Pick<Prisma.UserCreateInput, "name" | "email" | "password">) {
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await this.repositoryUser.create({
       name,
