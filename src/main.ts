@@ -1,22 +1,57 @@
-import { Logger } from "@nestjs/common";
+import {
+  ClassSerializerInterceptor,
+  Logger,
+  VersioningType,
+} from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
-import { NestFactory } from "@nestjs/core";
+import { NestFactory, Reflector } from "@nestjs/core";
 import {
   FastifyAdapter,
   NestFastifyApplication,
 } from "@nestjs/platform-fastify";
+import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 
-import { AppModule } from "@/app/app.module";
+import { ApiModule } from "./apps/api/api.module";
+import { ResponseInterceptor } from "./contexts/shared/infrastructure/response/response.interceptor";
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
-    AppModule,
+    ApiModule,
     new FastifyAdapter(),
   );
 
-  app.setGlobalPrefix("api");
   const configService = app.get(ConfigService);
   const port = configService.get<string>("PORT", "3000");
+
+  app.setGlobalPrefix("api");
+  app.useGlobalInterceptors(
+    new ClassSerializerInterceptor(app.get(Reflector), {
+      strategy: "excludeAll",
+      excludeExtraneousValues: true,
+    }),
+  );
+  app.useGlobalInterceptors(new ResponseInterceptor());
+  app.enableVersioning({
+    type: VersioningType.URI,
+  });
+
+  const config = new DocumentBuilder()
+    .setTitle("Pulpoline")
+    .setDescription("Backend for Pulpoline")
+    .setVersion("1.0")
+    .addBearerAuth(
+      {
+        type: "http",
+        scheme: "bearer",
+        bearerFormat: "JWT",
+        description: "To authenticate you must previously be logged",
+      },
+      "access-token",
+    )
+    .build();
+
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup("api/docs", app, document);
 
   await app.listen(port, "0.0.0.0");
 

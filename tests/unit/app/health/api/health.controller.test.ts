@@ -2,15 +2,15 @@ import { Logger } from "@nestjs/common";
 
 import { createMock, Mock } from "@/tests/utils/mock";
 
-import { HealthController } from "@/app/health/api/health.controller";
+import { ApiHealthController } from "@/src/apps/api/health/controllers/health.controller";
 
 describe("HealthController", () => {
-  let healthController: HealthController;
+  let healthController: ApiHealthController;
   let logger: Mock<Logger>;
 
   beforeEach(() => {
     logger = createMock<Logger>();
-    healthController = new HealthController(logger);
+    healthController = new ApiHealthController(logger);
   });
 
   describe("run", () => {
