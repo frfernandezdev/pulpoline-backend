@@ -6,6 +6,7 @@ import { LoggerModule } from "@/src/contexts/shared/infrastructure/logger/logger
 
 import { ApiAuthModule } from "./auth/auth.module";
 import { ApiHealthModule } from "./health/health.module";
+import { ApiHederaModule } from "./hedera/hedera.module";
 
 @Module({
   imports: [
@@ -23,12 +24,13 @@ import { ApiHealthModule } from "./health/health.module";
         DB_PASSWORD: Joi.string().required(),
         JWT_SECRET: Joi.string().required(),
         JWT_EXPIRES_IN: Joi.string().required(),
-        MY_ACCOUNT_ID: Joi.string().required(),
-        MY_PRIVATE_KEY: Joi.string().required(),
+        HEDERA_OPERATOR_ID: Joi.string().required(),
+        HEDERA_OPERATOR_KEY: Joi.string().required(),
       }),
     }),
     ApiHealthModule,
     ApiAuthModule,
+    ApiHederaModule,
   ],
 })
 export class ApiModule {}

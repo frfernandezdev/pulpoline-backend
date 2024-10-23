@@ -15,7 +15,7 @@ export class AuthLogoutService {
     await this.repositorySession.deleteMany({
       userId,
       expiresAt: {
-        lt: expiresIn,
+        lt: expiresIn.toISOString(),
       },
     });
   }

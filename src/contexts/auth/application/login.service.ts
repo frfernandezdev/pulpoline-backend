@@ -14,9 +14,8 @@ export class AuthLoginService {
 
   async login(user: any) {
     const payload = { email: user.email, sub: user.id };
-    const token = this.jwtService.sign(payload);
-
     const expiresIn = this.configService.get<number>("JWT_EXPIRES_IN") ?? 3600;
+    const token = this.jwtService.sign(payload, { expiresIn: `${expiresIn}s` });
     const expiredAt = new Date();
     expiredAt.setSeconds(expiredAt.getSeconds() + expiresIn);
 
@@ -27,7 +26,7 @@ export class AuthLoginService {
         },
       },
       token,
-      expiresAt: expiredAt,
+      expiresAt: expiredAt.toISOString(),
     });
 
     return {

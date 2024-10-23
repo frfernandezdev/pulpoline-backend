@@ -16,10 +16,10 @@ model User {
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
   sessions  Session[]
+  tokens    Token[]
 
   @@map("users")
 }
-
 
 model Session {
   id        Int      @id @default(autoincrement())
@@ -27,9 +27,22 @@ model Session {
   token     String   @unique
   createdAt DateTime @default(now())
   expiresAt DateTime
-  user     User    @relation(fields: [userId], references: [id])
+  user      User    @relation(fields: [userId], references: [id])
 
   @@map("sessions")
+}
+
+model Token {
+
+  id              Int      @id @default(autoincrement())
+  name            String
+  symbol          String
+  initialSupply   Int
+  tokenId         String
+  ownerId         Int
+  owner           User     @relation(fields: [ownerId], references: [id])
+
+  @@map("tokens")
 }
 
 enum Role {

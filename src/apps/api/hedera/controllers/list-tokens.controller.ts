@@ -2,36 +2,35 @@ import type { Request } from "express";
 
 import {
   Controller,
+  Get,
   HttpCode,
   Inject,
   Logger,
-  Post,
   Req,
   UseGuards,
 } from "@nestjs/common";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 
-import { AuthLogoutService } from "@/src/contexts/auth/application/logout.service";
 import { JwtAuthGuard } from "@/src/contexts/auth/infrastructure/guards/jwt.guard";
+import { HederaListTokenService } from "@/src/contexts/hedera/application/list-tokens.service";
 
-import { AuthResponseDTO } from "../dto/response.dto";
+import { HederaResponsePaginatorDTO } from "../dto/response.dto";
 
-@ApiTags("auth")
+@ApiTags("hedera")
 @ApiBearerAuth("access-token")
 @UseGuards(JwtAuthGuard)
-@Controller({ path: "/logout", version: "1" })
-export class ApiAuthLogoutController {
+@Controller({ path: "/list-tokens", version: "1" })
+export class ApiHederaListTokenController {
   constructor(
     @Inject(Logger) private readonly logger: Logger,
-    private readonly service: AuthLogoutService,
+    private readonly service: HederaListTokenService,
   ) {}
 
-  @Post()
+  @Get()
   @HttpCode(200)
   async handle(@Req() req: Request) {
-    const token = req.headers.authorization?.split(" ")[1] ?? "";
-    return AuthResponseDTO.make({
-      result: await this.service.logout((req.user as any).id, token),
+    return HederaResponsePaginatorDTO.make({
+      results: await this.service.listTokens((req.user as any).id),
     });
   }
 }

@@ -8,7 +8,7 @@ export class ApiHealthController {
 
   @Get()
   @HttpCode(200)
-  run() {
+  handle() {
     this.logger.log("Health endpoint called!");
     return { status: "ok" };
   }

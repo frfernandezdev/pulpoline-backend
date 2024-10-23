@@ -13,14 +13,14 @@ import {
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 
 import { AuthLoginService } from "@/src/contexts/auth/application/login.service";
-import { LocalGuard } from "@/src/contexts/auth/infrastructure/guards/local.guard";
+import { LocalAuthGuard } from "@/src/contexts/auth/infrastructure/guards/local.guard";
 
 import { LoginDTO } from "../dto/login.dto";
 import { AuthResponseDTO } from "../dto/response.dto";
 
 @ApiTags("auth")
 @ApiBearerAuth("access-token")
-@UseGuards(LocalGuard)
+@UseGuards(LocalAuthGuard)
 @Controller({
   path: "/login",
   version: "1",

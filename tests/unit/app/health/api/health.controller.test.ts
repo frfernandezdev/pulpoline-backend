@@ -15,7 +15,7 @@ describe("HealthController", () => {
 
   describe("run", () => {
     it("should return is healthy", () => {
-      expect(healthController.run()).toEqual({ status: "ok" });
+      expect(healthController.handle()).toEqual({ status: "ok" });
       expect(logger.log).toHaveBeenCalledTimes(1);
     });
   });

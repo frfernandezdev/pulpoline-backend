@@ -19,6 +19,10 @@ export class AuthResponse {
   @ApiResponseProperty()
   @Expose()
   readonly role: string;
+
+  @ApiResponseProperty()
+  @Expose()
+  readonly access_token: string;
 }
 
 export class AuthResponseDTO extends ResponseDTO {

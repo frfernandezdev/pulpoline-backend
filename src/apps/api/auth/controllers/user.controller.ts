@@ -12,13 +12,13 @@ import {
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 
 import { AuthUserService } from "@/src/contexts/auth/application/user.service";
-import { JwtGuard } from "@/src/contexts/auth/infrastructure/guards/jwt.guard";
+import { JwtAuthGuard } from "@/src/contexts/auth/infrastructure/guards/jwt.guard";
 
 import { AuthResponseDTO } from "../dto/response.dto";
 
 @ApiTags("auth")
 @ApiBearerAuth("access-token")
-@UseGuards(JwtGuard)
+@UseGuards(JwtAuthGuard)
 @Controller({ path: "/user", version: "1" })
 export class ApiAuthUserController {
   constructor(
